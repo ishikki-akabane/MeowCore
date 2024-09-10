@@ -22,17 +22,17 @@ class MeowCore:
         Stores a general API key (None by default).
     meow_api : str
         The base URL for MeowCore API authentication.
+    apiurl : str
+        The Base URL for MeowCore API endpoints
     """
 
     def __init__(self, TOKEN: str):
         """
-        Initializes MeowCore with the given API token. 
-        Automatically calls the authenticate method to validate the token.
-        
-        Parameters:
-        -----------
-        TOKEN : str
-            The API token that purr-mits access to MeowCore services.
+        Initialize MeowCore with the given API token. Automatically triggers 
+        authentication with the MeowCore API to validate the provided token.
+
+        :param TOKEN: The API token to authenticate and gain access to MeowCore services.
+        :raises ValueError: If authentication fails due to invalid token.
         """
         self.token = TOKEN
         self.ai_key = None
@@ -44,8 +44,9 @@ class MeowCore:
 
     def authenticate(self):
         """
-        Authenticates the user with the provided API token.
-        If the token is invalid, the library raises a ValueError and logs an error.
+        Authenticate the user with the MeowCore API using the provided token.
+
+        :raises ValueError: If the token is invalid or authentication fails.
         """
         if not self._validate_token():
             logger.error("Invalid API key provided for MeowCore 🐾. Access Denied! 😿")
@@ -55,12 +56,14 @@ class MeowCore:
 
     def _validate_token(self):
         """
-        Sends a POST request to the MeowCore API to validate the API token.
-        
-        Returns:
-        --------
-        bool
-            True if the token is valid, False otherwise.
+        Sends a POST request to the MeowCore API to validate the provided token.
+
+        If authentication is successful, the response contains various keys like
+        AI key, scanner key, and a general API key, which are stored for future use.
+
+        :return: True if the token is valid and authentication is successful, False otherwise.
+        :raises ConnectionError: If there is an issue connecting to the MeowCore API.
+        :raises requests.RequestException: If an error occurs during the POST request.
         """
         headers = {
             "Authorization": f"Bearer {self.token}",
@@ -81,6 +84,11 @@ class MeowCore:
             else:
                 logger.warning(f"Token validation failed! Status code: {response.status_code}. 😿")
                 return False
+
+        except requests.RequestException as e:
+            logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
+            raise ConnectionError(f"Error connecting to {self.meow_api}")
+
         except Exception as e:
             logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
             return False
