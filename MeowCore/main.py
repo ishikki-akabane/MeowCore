@@ -6,6 +6,6 @@ logger.setLevel(logging.DEBUG)
 
 
 class MeowCore:
-    def __init__(self):
-        print("meowcore working")
+    def __init__(self, TOKEN: str):
+        self.token = TOKEN
         return
