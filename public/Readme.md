@@ -1,1 +1,1 @@
-# trash folder
+# bin folder
