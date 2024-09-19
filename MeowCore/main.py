@@ -40,7 +40,7 @@ class MeowCore:
         self.scanner_key = None
         self.api_key = None
         self.apiurl = None
-        self.meow_api = "https://meow.api"
+        self.meow_api = "https://meowcore.vercel.app"
         self.authenticate()
 
     def authenticate(self):
