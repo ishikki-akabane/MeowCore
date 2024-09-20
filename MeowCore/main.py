@@ -58,6 +58,10 @@ class MeowCore:
 
         :raises ValueError: If the token is invalid or authentication fails.
         """
+        if self.category not in ["telegram"]:
+            logger.error("Invalid category provided for MeowCore 🐾. Access Denied! 😿")
+            raise ValueError("Invalid category provided for MeowCore.")
+            
         if not self._validate_token():
             logger.error("Invalid API key provided for MeowCore 🐾. Access Denied! 😿")
             raise ValueError("Invalid API key provided for MeowCore.")
