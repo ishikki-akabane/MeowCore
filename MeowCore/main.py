@@ -27,7 +27,13 @@ class MeowCore:
         The Base URL for MeowCore API endpoints
     """
 
-    def __init__(self, TOKEN: str):
+    def __init__(
+        self,
+        TOKEN: str,
+        category: str,
+        bot_id=None,
+        bot_username=None
+    ):
         """
         Initialize MeowCore with the given API token. Automatically triggers 
         authentication with the MeowCore API to validate the provided token.
@@ -36,6 +42,9 @@ class MeowCore:
         :raises ValueError: If authentication fails due to invalid token.
         """
         self.token = TOKEN
+        self.category = category
+        self.bot_id = bot_id
+        self.bot_username = bot_username
         self.ai_key = None
         self.scanner_key = None
         self.api_key = None
