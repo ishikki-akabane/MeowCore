@@ -21,9 +21,9 @@ class WelcomeFunc:
         bg_path = f"{chat.id}bgimage.png"
         build_data = data["data"]
         user_pfp = build_data["user_pfp"]
-        user_pfp = f"{user.id}userpfp.jpg"
+        user_pfp = f"downloads/{user.id}userpfp.jpg"
         chat_pfp = build_data["chat_pfp"]
-        chat_pfp = f"{user.id}chatpfp.jpg"
+        chat_pfp = f"downloads/{user.id}chatpfp.jpg"
         
         tempbg_open = Image.open(bg_path)
 
