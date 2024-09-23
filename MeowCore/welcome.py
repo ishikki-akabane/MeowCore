@@ -70,7 +70,7 @@ class WelcomeFunc:
             )
 
         # Save the final image
-        tempbg_open.save(f"{user_id}complete.png")
+        tempbg_open.save(f"resources/{user_id}complete.png")
 
         # clean up memory
         try:
