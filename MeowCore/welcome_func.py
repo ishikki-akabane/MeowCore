@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 import os
 import requests
 
-
+from welcome import build_welcome
 
 build_data = {
     "data": {
@@ -48,7 +48,7 @@ build_data = {
 }
 
 
-def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
+def build_welcomeeeeee(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
     tempbg_open = Image.open(bg_path)
 
     if user_pfp:
@@ -132,7 +132,8 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
         )
         
     tempbg_open.save("complete1.png")
-    
+
+
 build_welcome(
     9999999999,
     "iSHiKKi",
@@ -140,3 +141,18 @@ build_welcome(
     build_data["data"],
     user_pfp="user_pfp.jpg"
 )
+
+
+import requests
+base_url = "https://api.telegram.org/bot7043928524:AAHoVlgxoPIfsCZpxxZf_l4LDu7Cl92gzd0/sendPhoto"
+with open("complete.png", "rb") as image_file:
+    aa = requests.post(
+        base_url,
+        data={
+            "chat_id": -1001680693898
+        },
+        files={
+            "photo": image_file
+        }
+    )
+print(aa.json())
