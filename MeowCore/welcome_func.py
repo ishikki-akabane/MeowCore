@@ -4,32 +4,7 @@ import os
 import requests
 
 
-BASE_URL = f'https://api.telegram.org/bot'
-
-
-
-async def get_user_pfp(user_id, TOKEN):
-    response  = requests.get(f"{BASE_URL}{TOKEN}/getUserProfilePhotos?user_id={user_id}")
-    file_id = response.json()["result"]["photos"][0][-1]["file_id"]
-    
-    response2 = requests.get(f"{BASE_URL}{TOKEN}/getFile?file_id={file_id}")
-    file_path = response2.json()["result"]["file_path"]
-    file_url = f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
-
-
-    if file_url.startswith("https://"):
-        filename = os.path.basename(file_url)
-    else:
-        filename = file_url.split("/")[-1]
-    file_path = os.path.join(os.getcwd(), filename)
-    with requests.get(file_url, stream=True) as r:
-        with open(file_path, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192):
-                f.write(chunk)
-    return filename
-
-
-async def build_welcome(user_id, bg_path, build_data, user_pfp=None, chat_pfp=None):
+async def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
     tempbg_open = Image.open(bg_path)
 
     if user_pfp:
@@ -87,4 +62,30 @@ async def build_welcome(user_id, bg_path, build_data, user_pfp=None, chat_pfp=No
         draw.ellipse((0, 0) + chat_image.size, fill=255)
         tempbg_open.paste(chat_image, (chat_pfp_data["location"]["horizontal"], chat_pfp_data["location"]["vertical"]), mask)
 
+
+    all_text_data = build_data["text_data"]
+    for text_data in all_text_data:
+        text_font = ImageFont.truetype(
+            text_data["font"]["font"],
+            size=text_data["font"]["size"]
+        )
+        text_color = text_data["font"]["color"]
+
+        text = text_data["text"]
+        if text == "$user_id":
+            text = f"{user_id}"
+        elif text == "$first_name":
+            text = f"{first_name}"
+        else:
+            pass
+        
+        draw = ImageDraw.Draw(tempbg_open)
+        draw.text(
+            (text_data["horizontal"], text_data["vertical"]),
+            text,
+            fill=text_color,
+            font=text_font,
+        )
+        
+    tempbg_open.save("complete1.png")
     
