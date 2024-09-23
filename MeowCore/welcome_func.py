@@ -47,15 +47,6 @@ build_data = {
     }
 }
 
-build_welcome(
-    9999999999,
-    "iSHiKKi",
-    "hahabg.png",
-    build_data,
-    user_pfp="user_pfp.jpg",
-    chat_pfp=None
-)
-
 
 def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
     tempbg_open = Image.open(bg_path)
@@ -142,3 +133,10 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
         
     tempbg_open.save("complete1.png")
     
+build_welcome(
+    9999999999,
+    "iSHiKKi",
+    "hahabg.png",
+    build_data,
+    user_pfp="user_pfp.jpg"
+)
