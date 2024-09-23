@@ -114,32 +114,6 @@ class MeowCore(
             logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
             return False
             
-
-    async def load_welcome(self, all_welcome_id):
-        if self.category != "telegram":
-            return
-        asyncio.create_task(self.background_load_welcome(all_welcome_id))
-
-    async def background_load_welcome(self, all_welcome_id)
-        result, response = send_sync_request(
-            self.apiurl,
-            self.token,
-            "/fetch_welcome_templates",
-            all_welcome_id
-        )
-        if result == 200:
-            self.WELCOME_TEMPLATE = response
-        else:
-            raise ConnectionError(f"Error connecting to {self.apiurl}")
-
-        for template_data in self.WELCOME_TEMPLATE:
-            template_id = template_data["_id"]
-            template_bg = template_data["data"]["bg_url"]
-            with requests.get(template_bg, stream=True) as r:
-                with open(f"{template_id}bgimage.png", 'wb') as f:
-                    for chunk in r.iter_content(chunk_size=8192):
-                        f.write(chunk)
-
         
 
 
