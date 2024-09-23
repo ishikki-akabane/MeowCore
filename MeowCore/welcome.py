@@ -26,11 +26,15 @@ class WelcomeFunc:
         
         :Raises ConnectionError: If the request to fetch templates fails.
         """
-        result, response = send_sync_request(
+        headers = {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json"
+        }
+        result, response = requests.post(
             self.apiurl,
-            self.token,
             "/fetch_welcome_templates",
-            all_welcome_id
+            headers=headers,
+            json={"data": all_welcome_id}
         )
         if result != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
