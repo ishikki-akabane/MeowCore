@@ -52,7 +52,7 @@ build_welcome(
     "iSHiKKi",
     "hahabg.png",
     build_data,
-    user_pfp="user_pfp.png",
+    user_pfp="user_pfp.jpg",
     chat_pfp=None
 )
 
