@@ -36,6 +36,7 @@ class WelcomeFunc:
             headers=headers,
             json={"data": all_welcome_id}
         )
+        print(response.text)
         if response.status_code != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
         self.WELCOME_TEMPLATE = response.json()["data"]
