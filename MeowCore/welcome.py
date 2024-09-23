@@ -31,7 +31,7 @@ class WelcomeFunc:
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json"
         }
-        result, response = requests.post(
+        response = requests.post(
             f"{self.apiurl}/fetch_welcome_templates",
             headers=headers,
             json={"data": all_welcome_id}
