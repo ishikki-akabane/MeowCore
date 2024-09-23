@@ -2,6 +2,8 @@
 
 import requests
 import logging
+import aiohttp
+import asyncio
 
 logger = logging.getLogger('MeowCore')
 logger.setLevel(logging.DEBUG)
@@ -106,4 +108,17 @@ class MeowCore:
         except Exception as e:
             logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
             return False
+
+    async def load_Template_Welcome(self, all_welcome_id):
+        async with aiohttp.ClientSession() as newsession:
+            result, response = await send_async_request(
+                newsession,
+                self.apiurl,
+                self.token,
+                "/get_welcome_template",
+                all_welcome_id
+            )
+
+
+
 
