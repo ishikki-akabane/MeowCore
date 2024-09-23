@@ -1,6 +1,8 @@
 # A helper function for Telegram Category uses
 
-
+import aiohttp
+from aiofiles import open as aio_open
+import asyncio
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import os
 
@@ -12,6 +14,43 @@ class WelcomeFunc:
             return data
         else:
             return None
+
+    def load_welcome(self, all_welcome_id):
+        if self.category != "telegram":
+            return
+        asyncio.create_task(self.background_load_welcome(all_welcome_id))
+
+    async def background_load_welcome(self, all_welcome_id)
+        """
+        Asynchronously fetch welcome templates and download background images.
+        
+        :Raises ConnectionError: If the request to fetch templates fails.
+        """
+        result, response = send_sync_request(
+            self.apiurl,
+            self.token,
+            "/fetch_welcome_templates",
+            all_welcome_id
+        )
+        if result != 200:
+            raise ConnectionError(f"Error connecting to {self.apiurl}")
+        self.WELCOME_TEMPLATE = response
+
+        async with aiohttp.ClientSession() as session:
+            for template_data in self.WELCOME_TEMPLATE:
+                template_id = template_data["_id"]
+                template_bg_url = template_data["data"]["bg_url"]         
+                try:
+                    async with session.get(template_bg_url) as resp:
+                        if resp.status == 200:
+                            file_path = os.path.join(f"resources/template/{template_id}bgimage.png")
+                            async with aio_open(file_path, 'wb') as f:
+                                async for chunk in resp.content.iter_chunked(8192):
+                                    await f.write(chunk)
+                        else:
+                            logger.info(f"Failed to download {template_bg_url}, status code: {resp.status}")
+                except Exception as e:
+                    logger.info(f"Error downloading {template_bg_url}: {e}")
 
     async def build_welcome(self, template_id, user, chat, data):
         """
