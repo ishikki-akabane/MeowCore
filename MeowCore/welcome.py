@@ -18,12 +18,19 @@ class WelcomeFunc:
         Builds a welcome image by overlaying user and chat profile pictures, and
         adding personalized text over a background image.
         """
+        user_id = user.id
+        first_name = user.first_name
+        last_name = user.last_name
+        user_name = user.username
+        chat_id = chat.id
+        chat_title = chat.title
+    
         bg_path = f"{chat.id}bgimage.png"
         build_data = data["data"]
         user_pfp = build_data["user_pfp"]
-        user_pfp = f"downloads/{user.id}userpfp.jpg"
+        user_pfp = f"downloads/{user_id}userpfp.jpg"
         chat_pfp = build_data["chat_pfp"]
-        chat_pfp = f"downloads/{user.id}chatpfp.jpg"
+        chat_pfp = f"downloads/{user_id}chatpfp.jpg"
         
         tempbg_open = Image.open(bg_path)
 
@@ -70,7 +77,7 @@ class WelcomeFunc:
             )
 
         # Save the final image
-        tempbg_open.save(f"resources/{user_id}complete.png")
+        tempbg_open.save(f"resources/{chat_id}complete.png")
 
         # clean up memory
         try:
