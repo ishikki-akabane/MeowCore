@@ -109,15 +109,28 @@ class MeowCore:
             logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
             return False
 
-    async def load_Template_Welcome(self, all_welcome_id):
-        async with aiohttp.ClientSession() as newsession:
-            result, response = await send_async_request(
-                newsession,
-                self.apiurl,
-                self.token,
-                "/get_welcome_template",
-                all_welcome_id
-            )
+    def load_category(self):
+        if self.category == "telegram":
+            return
+
+    def load_Template_Welcome(self, all_welcome_id):
+        if self.category != "telegram":
+            return            
+        result, response = send_sync_request(
+            self.apiurl,
+            self.token,
+            "/get_welcome_template",
+            all_welcome_id
+        )
+        if result == 200:
+            self.welcome_cache = response
+        else:
+            raise ConnectionError(f"Error connecting to {self.apiurl}")
+
+    async def build_welcome_template(self):
+        return
+
+        
 
 
 
