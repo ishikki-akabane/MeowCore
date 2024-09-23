@@ -5,6 +5,7 @@ from aiofiles import open as aio_open
 import asyncio
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import os
+import requests
 
 
 class WelcomeFunc:
