@@ -1,10 +1,11 @@
-# a helper function for Telegram Category uses
+# A helper function for Telegram Category uses
 
 
 from PIL import Image, ImageDraw, ImageOps, ImageFont
+import os
 
 
-def circular_crop(image_path, size, circle_scale, location):
+async def circular_crop(image_path, size, circle_scale, location):
     """
     Helper function to crop an image into a circular shape and resize it.
     """
@@ -25,20 +26,24 @@ def circular_crop(image_path, size, circle_scale, location):
     return circular_img, (location["horizontal"], location["vertical"])
 
 
-def add_text(draw, text, position, font, color):
+async def add_text(draw, text, position, font, color):
     """
     Helper function to draw text on an image.
     """
     draw.text(position, text, fill=color, font=font)
 
 
-def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
+async def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
+    """
+    Builds a welcome image by overlaying user and chat profile pictures, and
+    adding personalized text over a background image.
+    """
     tempbg_open = Image.open(bg_path)
     
     # User Profile Picture
     if user_pfp:
         user_pfp_data = build_data["user_pfp_data"]
-        user_pfp_img, user_pfp_pos = circular_crop(
+        user_pfp_img, user_pfp_pos = await circular_crop(
             user_pfp, 
             user_pfp_data["size"], 
             user_pfp_data["circle"], 
@@ -49,7 +54,7 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
     # Chat Profile Picture
     if chat_pfp:
         chat_pfp_data = build_data["chat_pfp_data"]
-        chat_pfp_img, chat_pfp_pos = circular_crop(
+        chat_pfp_img, chat_pfp_pos = await circular_crop(
             chat_pfp, 
             chat_pfp_data["size"], 
             chat_pfp_data["circle"], 
@@ -69,7 +74,7 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
         elif text == "$first_name":
             text = first_name
         
-        add_text(
+        await add_text(
             draw, 
             text, 
             (text_data["horizontal"], text_data["vertical"]), 
@@ -78,4 +83,15 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
         )
 
     # Save the final image
-    tempbg_open.save("complete.png")
+    tempbg_open.save(f"{user_id}complete.png")
+
+    # clean up memory
+    try:
+        tempbg_open.close()
+        if user_pfp:
+            user_pfp_img.close()
+        if chat_pfp:
+            chat_pfp_img.close()
+    except:
+        pass
+    
