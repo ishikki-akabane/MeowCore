@@ -51,6 +51,13 @@ async def build_welcome(user_id, bg_path, build_data, user_pfp=None, chat_pfp=No
         new_height = int(height * user_pfp_circle)
         pfp_image = user_pfp_image.resize((new_width, new_height))
         pfp_image.save(f"{user_id}_user_pfp.png")
+
+        # Pasting image on the template
+        user_image = Image.open(f"{user_id}_user_pfp.png")
+        mask = Image.new("L", user_image.size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0) + user_image.size, fill=255)
+        tempbg_open.paste(user_image, (user_pfp_data["location"]["horizontal"], user_pfp_data["location"]["vertical"]), mask)
     
 
     if chat_pfp:
@@ -72,5 +79,12 @@ async def build_welcome(user_id, bg_path, build_data, user_pfp=None, chat_pfp=No
         new_height = int(height * chat_pfp_circle)
         pfp_image = chat_pfp_image.resize((new_width, new_height))
         pfp_image.save(f"{user_id}_chat_pfp.png")
+
+        # Pasting image on the template
+        chat_image = Image.open(f"{user_id}_user_pfp.png")
+        mask = Image.new("L", chat_image.size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0) + chat_image.size, fill=255)
+        tempbg_open.paste(chat_image, (chat_pfp_data["location"]["horizontal"], chat_pfp_data["location"]["vertical"]), mask)
 
     
