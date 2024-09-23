@@ -5,11 +5,16 @@ import logging
 import aiohttp
 import asyncio
 
+from MeowCore.welcome import WelcomeFunc
+
+
 logger = logging.getLogger('MeowCore')
 logger.setLevel(logging.DEBUG)
 
 
-class MeowCore:
+class MeowCore(
+    WelcomeFunc
+):
     """
     MeowCore 🐾 - A cat-tastic Python library that offers versatile utilities for developers.
     
