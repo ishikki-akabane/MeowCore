@@ -32,6 +32,7 @@ class WelcomeFunc:
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json"
         }
+        print(self.apiurl)
         result, response = requests.post(
             self.apiurl,
             "/fetch_welcome_templates",
@@ -39,7 +40,7 @@ class WelcomeFunc:
             json={"data": all_welcome_id}
         )
         print(result)
-        if response != 200:
+        if response.status != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
         self.WELCOME_TEMPLATE = response.json()["data"]
         failedd = response.json()["failed"]
