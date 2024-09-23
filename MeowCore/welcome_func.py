@@ -70,7 +70,7 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
         mask = Image.new("L", user_pfp_img.size, 0)
         draw = ImageDraw.Draw(mask)
         draw.ellipse((0, 0) + user_pfp_img.size, fill=255)
-        user_pfp_image = ImageOps.fit(user_pfp_img, mask.size, centering=(user_pfp_data["size"]["horizontal"], user_pfp_data["size"]["vertical"])
+        user_pfp_image = ImageOps.fit(user_pfp_img, mask.size, centering=(user_pfp_data["size"]["horizontal"], user_pfp_data["size"]["vertical"]))
         user_pfp_image.putalpha(mask)
 
         user_pfp_circle = user_pfp_data["circle"]
@@ -98,7 +98,7 @@ def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_
         mask = Image.new("L", chat_pfp_img.size, 0)
         draw = ImageDraw.Draw(mask)
         draw.ellipse((0, 0) + chat_pfp_img.size, fill=255)
-        chat_pfp_image = ImageOps.fit(chat_pfp_img, mask.size, centering=(chat_pfp_data["size"]["horizontal"], chat_pfp_data["size"]["vertical"])
+        chat_pfp_image = ImageOps.fit(chat_pfp_img, mask.size, centering=(chat_pfp_data["size"]["horizontal"], chat_pfp_data["size"]["vertical"]))
         chat_pfp_image.putalpha(mask)
 
         chat_pfp_circle = chat_pfp_data["circle"]
