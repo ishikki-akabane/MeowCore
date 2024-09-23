@@ -143,11 +143,11 @@ build_welcome(
 
 import requests
 
-base_url = "https://api.telegram.org/bot7043928524:AAHoVlgxoPIfsCZpxxZf_l4LDu7Cl92gzd0/send_photo"
+base_url = "https://api.telegram.org/bot7043928524:AAHoVlgxoPIfsCZpxxZf_l4LDu7Cl92gzd0/sendPhoto"
 aa = requests.post(
     base_url,
     json={
-        "chat_id": 5039582471,
+        "chat_id": -1001680693898,
         "photo": "complete1.png"
     }
 )
