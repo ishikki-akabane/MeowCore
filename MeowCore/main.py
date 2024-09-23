@@ -127,9 +127,18 @@ class MeowCore:
         else:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
 
-    async def build_welcome_template(self, welcome_id, user_id, chat_id):
+    async def build_welcome_template(
+        self,
+        welcome_id,
+        user_id,
+        chat_id,
+        user_path=None,
+        chat_path=None
+    ):
         welcome_data = self.welcome_cache[welcome_id]
-        
+        build_data = welcome_data["data"]
+        user_pfp = build_data["user_pfp"]
+        chat_pfp = build_data["chat_pfp"]
         return
 
         
