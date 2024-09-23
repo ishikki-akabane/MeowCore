@@ -38,7 +38,10 @@ class WelcomeFunc:
         )
         if result != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
-        self.WELCOME_TEMPLATE = response
+        self.WELCOME_TEMPLATE = response.json()["data"]
+        failedd = response.json()["failed"]
+        passsed = response.json()["passed"]
+        logger.info(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
 
         async with aiohttp.ClientSession() as session:
             for template_data in self.WELCOME_TEMPLATE:
