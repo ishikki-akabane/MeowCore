@@ -1,4 +1,4 @@
-
+import asyncio
 from MeowCore import MeowCore
 
 
@@ -9,5 +9,9 @@ MeowClient = MeowCore(
     bot_username="iSHiKKiBot"
 )
 
-aa = MeowClient.load_welcome(["x00xhaha"])
-print("hoi")
+async def aa():
+    await MeowClient.load_welcome(["x00xhaha"])
+
+    print("hoi")
+
+asyncio.run(aa())
