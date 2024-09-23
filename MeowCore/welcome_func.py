@@ -4,7 +4,60 @@ import os
 import requests
 
 
-async def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
+
+build_data = {
+    "data": {
+        "user_pfp": True,
+        "user_pfp_data": {
+            "size": {
+                "horizontal": 0.5,
+                "vertical": 0.5
+            },
+            "location": {
+                "horizontal": 920,
+                "vertical": 84
+            },
+            "circle": 0.79
+        },
+        "chat_pfp": False,
+        "chat_pfp_data": {},
+        "text": True,
+        "text_data": [
+            {
+                "text": "$user_id",
+                "horizontal": 300,
+                "vertical": 480,
+                "font": {
+                    "font" : "Blackout-Midnight.ttf",
+                    "color": "rgb(198, 212, 252)",
+                    "size": 110
+                }
+            },
+            {
+                "text": "$first_name",
+                "horizontal": 500,
+                "vertical": 610,
+                "font": {
+                    "font" : "Blackout-Midnight.ttf",
+                    "color": "rgb(198, 212, 252)",
+                    "size": 110
+                }
+            }
+        ]
+    }
+}
+
+build_welcome(
+    9999999999,
+    "iSHiKKi",
+    "hahabg.png",
+    build_data,
+    user_pfp="user_pfp.png",
+    chat_pfp=None
+)
+
+
+def build_welcome(user_id, first_name, bg_path, build_data, user_pfp=None, chat_pfp=None):
     tempbg_open = Image.open(bg_path)
 
     if user_pfp:
