@@ -99,7 +99,6 @@ class WelcomeFunc:
         circular_img = circular_img.resize((new_width, new_height))
         return circular_img, (location["horizontal"], location["vertical"])
 
-
     async def add_text(self, draw, text, position, font, color):
         """
         Helper function to draw text on an image.
