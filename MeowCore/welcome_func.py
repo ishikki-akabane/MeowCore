@@ -29,10 +29,12 @@ async def get_user_pfp(user_id, TOKEN):
     return filename
 
 
-async def build_welcome(bg_path, user_pfp=None, chat_pfp=None):
+async def build_welcome(bg_path, build_data, user_pfp=None, chat_pfp=None):
     tempbg_open = Image.open(bg_path)
 
     if user_pfp:
+        user_pfp_data = build_data["user_pfp_data"]
+        
         # user pfp editing into circle shape
         user_pfp_img = Image.open(user_pfp)
         user_pfp_img = user_pfp_img.resize((640, 640))
@@ -40,10 +42,12 @@ async def build_welcome(bg_path, user_pfp=None, chat_pfp=None):
         mask = Image.new("L", user_pfp_img.size, 0)
         draw = ImageDraw.Draw(mask)
         draw.ellipse((0, 0) + user_pfp_img.size, fill=255)
-        user_pfp_img = ImageOps.fit(user_pfp_img, mask.size, centering=(pfp_size_h, pfp_size_v))
+        user_pfp_img = ImageOps.fit(user_pfp_img, mask.size, centering=(user_pfp_data["size"]["horizontal"], user_pfp_data["size"]["vertical"])
         user_pfp_img.putalpha(mask)
 
     if chat_pfp:
+        chat_pfp_data = build_data["chat_pfp_data"]
+        
         # chat pfp editing into circle shape
         chat_pfp_img = Image.open(chat_pfp)
         chat_pfp_img = chat_pfp_img.resize((640, 640))
@@ -51,7 +55,7 @@ async def build_welcome(bg_path, user_pfp=None, chat_pfp=None):
         mask = Image.new("L", chat_pfp_img.size, 0)
         draw = ImageDraw.Draw(mask)
         draw.ellipse((0, 0) + chat_pfp_img.size, fill=255)
-        chat_pfp_img = ImageOps.fit(chat_pfp_img, mask.size, centering=(pfp_size_h, pfp_size_v))
+        chat_pfp_img = ImageOps.fit(chat_pfp_img, mask.size, centering=(chat_pfp_data["size"]["horizontal"], chat_pfp_data["size"]["vertical"])
         chat_pfp_img.putalpha(mask)
 
     
