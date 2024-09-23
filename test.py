@@ -8,4 +8,6 @@ MeowClient = MeowCore(
     bot_id="123456789",
     bot_username="iSHiKKiBot"
 )
+
+aa = MeowClient.load_welcome(["x00xhaha"])
 print("hoi")
