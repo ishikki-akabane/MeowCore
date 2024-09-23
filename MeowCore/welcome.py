@@ -40,6 +40,7 @@ class WelcomeFunc:
         if response.status_code != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
         self.WELCOME_TEMPLATE = response.json()["data"]
+        print(self.WELCOME_TEMPLATE)
         failedd = response.json()["failed"]
         passsed = response.json()["passed"]
         logger.info(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
