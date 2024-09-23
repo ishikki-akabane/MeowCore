@@ -27,6 +27,7 @@ class WelcomeFunc:
         
         :Raises ConnectionError: If the request to fetch templates fails.
         """
+        print("bg run")
         headers = {
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json"
@@ -37,7 +38,8 @@ class WelcomeFunc:
             headers=headers,
             json={"data": all_welcome_id}
         )
-        if result != 200:
+        print(result)
+        if response != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
         self.WELCOME_TEMPLATE = response.json()["data"]
         failedd = response.json()["failed"]
