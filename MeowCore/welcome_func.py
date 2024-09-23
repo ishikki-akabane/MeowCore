@@ -140,18 +140,3 @@ build_welcome(
     build_data["data"],
     user_pfp="user_pfp.jpg"
 )
-
-import requests
-
-base_url = "https://api.telegram.org/bot7043928524:AAHoVlgxoPIfsCZpxxZf_l4LDu7Cl92gzd0/sendPhoto"
-with open("complete1.png", "rb") as image_file:
-    aa = requests.post(
-        base_url,
-        data={
-            "chat_id": -1001680693898
-        },
-        files={
-            "photo": image_file
-        }
-    )
-print(aa.json())
