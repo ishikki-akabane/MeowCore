@@ -5,6 +5,15 @@ from PIL import Image, ImageDraw, ImageOps, ImageFont
 import os
 
 
+class WelcomeFunc:
+    async def check_welcome_template(self, template_id):
+        if template_id in self.WELCOME_TEMPLATE:
+            data = self.WELCOME_TEMPLATE[template_id]
+            return data
+        else:
+            return None
+
+
 async def circular_crop(image_path, size, circle_scale, location):
     """
     Helper function to crop an image into a circular shape and resize it.
