@@ -20,7 +20,7 @@ class WelcomeFunc:
             return
         asyncio.create_task(self.background_load_welcome(all_welcome_id))
 
-    async def background_load_welcome(self, all_welcome_id)
+    async def background_load_welcome(self, all_welcome_id):
         """
         Asynchronously fetch welcome templates and download background images.
         
