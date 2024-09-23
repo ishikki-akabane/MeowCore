@@ -137,6 +137,6 @@ build_welcome(
     9999999999,
     "iSHiKKi",
     "hahabg.png",
-    build_data,
+    build_data["data"],
     user_pfp="user_pfp.jpg"
 )
