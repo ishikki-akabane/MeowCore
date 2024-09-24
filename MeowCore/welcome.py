@@ -39,19 +39,17 @@ class WelcomeFunc:
         if response.status_code != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
         self.WELCOME_TEMPLATE = response.json()["data"]
-        print(self.WELCOME_TEMPLATE)
         failedd = response.json()["failed"]
         passsed = response.json()["passed"]
         print(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
 
         async with aiohttp.ClientSession() as session:
             for template_id, template_data in self.WELCOME_TEMPLATE.items():
-                print(template_data)
-                print(template_id)
                 template_bg_url = template_data["data"]["bg_url"]         
                 try:
                     async with session.get(template_bg_url) as resp:
                         if resp.status == 200:
+                            os.makedirs(f"resources/template", exist_ok=True)
                             file_path = os.path.join(f"resources/template/{template_id}bgimage.png")
                             async with aio_open(file_path, 'wb') as f:
                                 async for chunk in resp.content.iter_chunked(8192):
