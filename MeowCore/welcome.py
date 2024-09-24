@@ -72,7 +72,7 @@ class WelcomeFunc:
         chat_title = chat.title
         build_data = data["data"]
 
-        bg_path = f"{template_id}bgimage.png"
+        bg_path = f"resources/template/{template_id}bgimage.png"
         user_pfp = build_data["user_pfp"]
         user_pfp = f"downloads/{user_id}userpfp.jpg"
         chat_pfp = build_data["chat_pfp"]
