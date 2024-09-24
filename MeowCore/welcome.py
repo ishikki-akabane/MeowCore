@@ -111,7 +111,7 @@ class WelcomeFunc:
     
         for text_data in all_text_data:
             font_name = text_data["font"]["font"]
-            font_path = f"resources/template/fonts/{font_name}"
+            font_path = f"resources/fonts/{font_name}"
             try:
                 font = ImageFont.truetype(font_path, size=text_data["font"]["size"])
             except FileNotFoundError as e:
