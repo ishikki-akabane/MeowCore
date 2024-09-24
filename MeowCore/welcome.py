@@ -110,7 +110,17 @@ class WelcomeFunc:
         all_text_data = build_data["text_data"]
     
         for text_data in all_text_data:
-            font = ImageFont.truetype(text_data["font"]["font"], size=text_data["font"]["size"])
+            font_name = text_data["font"]["font"]
+            font_path = f"resources/template/fonts/{font_name}"
+            try:
+                font = ImageFont.truetype(font_path, size=text_data["font"]["size"])
+            except FileNotFoundError as e:
+                raise FileNotFoundError(f"Font file not found: {font_path}. Please ensure the font file exists.")
+            except OSError as e:
+                raise OSError(f"Error loading font from: {font_path}. The font may be corrupted or invalid.")
+            except Exception as e:
+                raise Exception(f"An unexpected error occurred while importing fonts: {str(e)}")
+           
             text = text_data["text"]
             if text == "$user_id":
                 text = str(user_id)
@@ -160,5 +170,4 @@ class WelcomeFunc:
         Helper function to draw text on an image.
         """
         draw.text(position, text, fill=color, font=font)
-
 
