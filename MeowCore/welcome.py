@@ -6,7 +6,6 @@ import asyncio
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import os
 import requests
-from . import logger
 
 
 class WelcomeFunc:
@@ -44,7 +43,7 @@ class WelcomeFunc:
         print(self.WELCOME_TEMPLATE)
         failedd = response.json()["failed"]
         passsed = response.json()["passed"]
-        logger.info(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
+        print(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
 
         async with aiohttp.ClientSession() as session:
             for template_data in self.WELCOME_TEMPLATE:
@@ -58,9 +57,9 @@ class WelcomeFunc:
                                 async for chunk in resp.content.iter_chunked(8192):
                                     await f.write(chunk)
                         else:
-                            logger.info(f"Failed to download {template_bg_url}, status code: {resp.status}")
+                            print(f"Failed to download {template_bg_url}, status code: {resp.status}")
                 except Exception as e:
-                    logger.info(f"Error downloading {template_bg_url}: {e}")
+                    print(f"Error downloading {template_bg_url}: {e}")
 
     async def build_welcome(self, template_id, user, chat, data):
         """
