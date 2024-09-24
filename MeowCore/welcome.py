@@ -6,6 +6,7 @@ import asyncio
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import os
 import requests
+from . import logger
 
 
 class WelcomeFunc:
