@@ -16,10 +16,12 @@ class WelcomeFunc:
         else:
             return None
 
-    async def load_welcome(self, all_welcome_id):
+    def load_welcome(self, all_welcome_id):
         if self.category != "telegram":
             return
-        await self.background_load_welcome(all_welcome_id)
+        loop = asyncio.get_event_loop()
+        loop.create_task(self.background_load_welcome(all_welcome_id))
+        # await self.background_load_welcome(all_welcome_id)
 
     async def background_load_welcome(self, all_welcome_id):
         """
