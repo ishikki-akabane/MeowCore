@@ -21,6 +21,7 @@ async def aa():
         bot_username="iSHiKKiBot"
     )
     MeowClient.load_welcome(["x00xhaha"])
+    await asyncio.sleep(10)
 
     print("hoi")
 
