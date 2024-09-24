@@ -45,7 +45,7 @@ class WelcomeFunc:
         print(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
 
         async with aiohttp.ClientSession() as session:
-            for template_id, template_data in self.WELCOME_TEMPLATE:
+            for template_id, template_data in self.WELCOME_TEMPLATE():
                 print(template_data)
                 print(template_id)
                 template_bg_url = template_data["data"]["bg_url"]         
