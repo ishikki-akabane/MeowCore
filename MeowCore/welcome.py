@@ -77,15 +77,14 @@ class WelcomeFunc:
 
         bg_path = f"resources/template/{template_id}bgimage.png"
         user_pfp = build_data["user_pfp"]
-        user_pfp = f"downloads/{user_id}userpfp.jpg"
         chat_pfp = build_data["chat_pfp"]
-        chat_pfp = f"downloads/{user_id}chatpfp.jpg"
         
         tempbg_open = Image.open(bg_path)
 
         # User Profile Picture
         if user_pfp:
             user_pfp_data = build_data["user_pfp_data"]
+            user_pfp = f"downloads/{user_id}userpfp.jpg"
             user_pfp_img, user_pfp_pos = await self.circular_crop(
                 user_pfp, 
                 user_pfp_data["size"], 
@@ -97,6 +96,7 @@ class WelcomeFunc:
         # Chat Profile Picture
         if chat_pfp:
             chat_pfp_data = build_data["chat_pfp_data"]
+            chat_pfp = f"downloads/{user_id}chatpfp.jpg"
             chat_pfp_img, chat_pfp_pos = await self.circular_crop(
                 chat_pfp, 
                 chat_pfp_data["size"], 
