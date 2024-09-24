@@ -6,6 +6,7 @@ import asyncio
 from PIL import Image, ImageDraw, ImageOps, ImageFont
 import os
 import requests
+from unidecode import unidecode
 
 
 class WelcomeFunc:
@@ -41,7 +42,6 @@ class WelcomeFunc:
         if response.status_code != 200:
             raise ConnectionError(f"Error connecting to {self.apiurl}")
         self.WELCOME_TEMPLATE = response.json()["data"]
-        print(response.json()["error"])
         failedd = response.json()["failed"]
         passsed = response.json()["passed"]
         print(f"Welcome Template load: Failed- {failedd} | Passed- {passsed}")
@@ -68,11 +68,11 @@ class WelcomeFunc:
         adding personalized text over a background image.
         """
         user_id = user.id
-        first_name = user.first_name
-        last_name = user.last_name
+        first_name = unidecode(user.first_name)
+        last_name = unidecode(user.last_name)
         user_name = user.username
         chat_id = chat.id
-        chat_title = chat.title
+        chat_title = unidecode(chat.title)
         build_data = data["data"]
 
         bg_path = f"resources/template/{template_id}bgimage.png"
