@@ -1,7 +1,7 @@
 from setuptools import setup
 import re
 
-requirements = ["requests", "aiohttp", "asyncio", "aiofiles", "pillow"]
+requirements = ["requests", "aiohttp", "asyncio", "aiofiles", "pillow", "unidecode"]
     
 readme = ''
 with open("README.md", encoding="utf-8") as f:
