@@ -38,6 +38,6 @@ setup(
     ],
     description='Your cat-tastic Python library for a variety of utilities and powerful tools, all with a touch of feline charm.',
     include_package_data=True,
-    keywords=['utility', 'tool', 'api', 'meow'],
+    keywords=['utility', 'tool', 'api', 'meow', 'telegram', 'discord'],
     install_requires=requirements
 )
