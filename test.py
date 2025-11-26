@@ -11,18 +11,18 @@ logging.basicConfig(
     datefmt="[%X]",
 )
 
+
 LOGGER = logging.getLogger('[TEST]')
+
 
 async def aa():
     MeowClient = MeowCore(
-        "69696969-MeowMeow",
-        category="telegram",
-        bot_id="123456789",
-        bot_username="iSHiKKiBot"
+        api_key="test-rj",
+        bot_name="iSHiKKiBot",
     )
-    MeowClient.load_welcome(["x00xhaha"])
     await asyncio.sleep(10)
-
     print("hoi")
 
+
 asyncio.run(aa())
+
