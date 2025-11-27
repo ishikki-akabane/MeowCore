@@ -6,8 +6,24 @@ import aiohttp
 import asyncio
 
 
-logger = logging.getLogger('MeowCore')
-logger.setLevel(logging.DEBUG)
+class MeowLogger:
+    def __init__(self):
+        self.logger = logging.getLogger("MeowCore")
+
+    def info(self, message: str):
+        self.logger.info(f"[MEOWCORE] INFO » {message}")
+
+    def warning(self, message: str):
+        self.logger.warning(f"[MEOWCORE] WARNING » {message}")
+
+    def error(self, message: str):
+        self.logger.error(f"[MEOWCORE] ERROR » {message}")
+
+    def debug(self, message: str):
+        self.logger.debug(f"[MEOWCORE] DEBUG » {message}")
+
+
+logger = MeowLogger()
 
 
 class MeowCore:
@@ -49,6 +65,8 @@ class MeowCore:
 
         :raises ValueError: If the token is invalid or authentication fails.
         """
+        logger.info("Initialising MeowCore Instance...")
+        
         if self.category not in ["telegram"]:
             logger.error("Invalid category provided for MeowCore. Access Denied!")
             raise ValueError("Invalid category provided for MeowCore.")

@@ -5,21 +5,14 @@ import sys
 
 
 FORMAT = "[TEST] %(message)s"
-sys.stdout.reconfigure(encoding="utf-8")
-sys.stderr.reconfigure(encoding="utf-8")
 logging.basicConfig(
-    handlers=[
-        logging.FileHandler("logs.txt", encoding="utf-8"),
-        logging.StreamHandler(sys.stdout),
-    ],
+    handlers=[logging.FileHandler("logs.txt"), logging.StreamHandler()],
     level=logging.INFO,
     format=FORMAT,
     datefmt="[%X]",
-    force=True,
 )
 
-
-LOGGER = logging.getLogger('[TEST]')
+LOGGER = logging.getLogger("TEST")
 
 
 async def aa():
