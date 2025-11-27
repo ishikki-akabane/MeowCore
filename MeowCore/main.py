@@ -4,6 +4,8 @@ import requests
 import logging
 import aiohttp
 import asyncio
+import zipfile
+import io
 
 
 class MeowLogger:
@@ -98,6 +100,9 @@ class MeowCore:
             )
             if response.status_code == 200:
                 logger.info("Token validated successfully. You have purr-mission!")
+                response_data = response.json()
+                self.user = response_data["user"]
+                self.plugins = response_data["plugins"]
                 return True
             else:
                 logger.warning(f"Token validation failed! Status code: {response.status_code}.")
@@ -107,6 +112,40 @@ class MeowCore:
             raise ConnectionError("Error connecting to MeowCore...")
         except Exception as e:
             logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong!")
+            return False
+    
+    def load_plugins(self):
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+        try:
+            logger.info("Downloading Plugins...!")
+            payload = {"plugin-codes": self.plugins}
+            response = requests.post(
+                f"{self.meow_api}/downloadall",
+                headers=headers,
+                json=payload
+            )
+
+            if response.status_code == 200:
+                zip_filename = "plugins.zip"
+                with open(zip_filename, 'wb') as f:
+                    f.write(response.content)
+                try:
+                    with zipfile.ZipFile(io.BytesIO(response.content)) as z:
+                        z.extractall("./")
+                        print(f"Extracted: {z.namelist()} into ./")
+                except zipfile.BadZipFile:
+                    print("Error: The file downloaded was not a valid zip file.")
+            else:
+                logger.warning(f"Download failed! : {response.json()}.")
+                return False
+        except requests.RequestException as e:
+            logger.error(f"An error occurred during downloading: {e}. Looks like something went wrong!")
+            raise ConnectionError("Error Downloading to MeowCore...")
+        except Exception as e:
+            logger.error(f"An error occurred during downloading plugins: {e}. Looks like something went wrong!")
             return False
 
 
