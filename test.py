@@ -20,8 +20,7 @@ async def aa():
         api_key="test-rj",
         bot_name="iSHiKKiBot",
     )
-    await asyncio.sleep(10)
-    print("hoi")
+    MeowClient.load_plugins()
 
 
 asyncio.run(aa())
