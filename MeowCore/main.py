@@ -130,14 +130,15 @@ class MeowCore:
 
             if response.status_code == 200:
                 zip_filename = "plugins.zip"
+                file_downloaded = []
                 with open(zip_filename, 'wb') as f:
                     f.write(response.content)
                 try:
                     with zipfile.ZipFile(io.BytesIO(response.content)) as z:
                         z.extractall(download_dir)
-                        print(f"Extracted: {z.namelist()} into {download_dir}")
+                        logger.info(f"Extracted: {z.namelist()} into {download_dir}")
                 except zipfile.BadZipFile:
-                    print("Error: The file downloaded was not a valid zip file.")
+                    logger.error("Error: The file downloaded was not a valid zip file.")
             else:
                 logger.warning(f"Download failed! : {response.json()}.")
                 return False
