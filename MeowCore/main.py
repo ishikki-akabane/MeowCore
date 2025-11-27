@@ -114,7 +114,7 @@ class MeowCore:
             logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong!")
             return False
     
-    def load_plugins(self):
+    def load_plugins(self, download_dir="./"):
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
@@ -134,8 +134,8 @@ class MeowCore:
                     f.write(response.content)
                 try:
                     with zipfile.ZipFile(io.BytesIO(response.content)) as z:
-                        z.extractall("./")
-                        print(f"Extracted: {z.namelist()} into ./")
+                        z.extractall(download_dir)
+                        print(f"Extracted: {z.namelist()} into {download_dir}")
                 except zipfile.BadZipFile:
                     print("Error: The file downloaded was not a valid zip file.")
             else:
