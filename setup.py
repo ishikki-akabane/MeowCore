@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import re
 
 requirements = ["requests", "aiohttp", "asyncio", "aiofiles", "pillow", "unidecode"]
@@ -37,7 +37,9 @@ setup(
 
     ],
     description='Your cat-tastic Python library for a variety of utilities and powerful tools, all with a touch of feline charm.',
+    packages=find_packages(exclude=["MeowCore.plugins*"]),
     include_package_data=True,
+    exclude_package_data={"MeowCore": ["plugins/*", "plugins/**"]},
     keywords=['utility', 'tool', 'api', 'meow', 'telegram', 'discord'],
     install_requires=requirements
 )

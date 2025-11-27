@@ -50,13 +50,13 @@ class MeowCore:
         :raises ValueError: If the token is invalid or authentication fails.
         """
         if self.category not in ["telegram"]:
-            logger.error("Invalid category provided for MeowCore 🐾. Access Denied! 😿")
+            logger.error("Invalid category provided for MeowCore. Access Denied!")
             raise ValueError("Invalid category provided for MeowCore.")
             
         if not self._validate_token():
-            logger.error("Invalid API key provided for MeowCore 🐾. Access Denied! 😿")
+            logger.error("Invalid API key provided for MeowCore. Access Denied!")
             raise ValueError("Invalid API key provided for MeowCore.")
-        logger.info("MeowCore loaded successfully!!! 🐾 Ready to purr and serve. 😸")
+        logger.info("MeowCore loaded successfully!!! Ready to purr and serve.")
 
 
     def _validate_token(self):
@@ -79,16 +79,16 @@ class MeowCore:
                 f"{self.meow_api}/auth", headers=headers
             )
             if response.status_code == 200:
-                logger.info("Token validated successfully. You have purr-mission! 😺")
+                logger.info("Token validated successfully. You have purr-mission!")
                 return True
             else:
-                logger.warning(f"Token validation failed! Status code: {response.status_code}. 😿")
+                logger.warning(f"Token validation failed! Status code: {response.status_code}.")
                 return False
         except requests.RequestException as e:
-            logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
+            logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong!")
             raise ConnectionError("Error connecting to MeowCore...")
         except Exception as e:
-            logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong! 😿")
+            logger.error(f"An error occurred during token validation: {e}. Looks like something went wrong!")
             return False
 
 
